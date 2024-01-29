@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block body %}
+{%  load crispy_forms_tags %}
+<div class="container h-100">
+    <div class="my-5 p-5 bg-primary">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                {% comment %} add task {% endcomment %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title bg-secondary p-3">Add New Todo 
+                        <span class='bg-primary rounded-pill '>
+                            {{user}}
+                        </span>
+                    </h5>
+                      <form  method="post">
+                        {% csrf_token %}
+                            {{form | crispy}}
+                            {% if user.is_authenticated %}
+                                <button type='submit' class='btn btn-primary'>Add</button>
+                            {% endif %}
+                      </form>
+
+                    </div>
+                  </div>
+            </div>
+            {% comment %} shot task {% endcomment %}
+            <div class="col-md-8 col-sm-12">
+                <div class="card p-2">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th scope='col'>Id</th>
+                                <th scope='col'>Ttitle</th>
+                                <th scope='col'>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Due Date
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {% for task in data %}
+                                            <li><a class="dropdown-item" href="{% url 'due_date_filter' task.due_date %}">{{task.due_date}}</a></li>
+                                            {% endfor %}
+                                          {% comment %} <li><a class="dropdown-item" href="{% url 'project_wise_filter' 1%}">1</a></li> {% endcomment %}
+                                        </ul>
+                                      </div>
+                                </th>
+                                <th scope='col'>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Priority
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 1%}">1</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 2%}">2</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 3%}">3</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 4%}">4</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 5%}">5</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 6%}">6</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 7%}">7</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'priority_wise_filter' 8%}">8</a></li>
+                                        </ul>
+                                      </div>
+                                </th>
+                                <th scope='col'>
+                                    <div class="dropdown">
+                                            Project
+                                        
+                                </th>
+                                <th scope='col'>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Current Status
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'to-do'%}">To Do(Incomplete)</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'on-going'%}">On Going</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'status_wise_filter' 'completed'%}">Completed</a></li>
+                                        </ul>
+                                      </div>
+                                </th>
+                                <th scope='col'>Action 
+                                    <a class="btn btn-primary   " href="{% url 'home'%}">Remove Filter</a>
+
+                                </th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in object_list%}
+                                <tr>
+                                    <th scope="row">{{task.id}}</th>
+                                    <td>{{task.title}}</td>
+                                    <td>{{task.due_date}}</td>
+                                    <td>{{task.priority}}</td>
+                                    <td>{{task.project}}</td>
+                                    <td>{{task.current_status}}</td>
+                                   
+                                    <td>
+                                        {% if user.is_authenticated %}
+                                            <button class='btn btn-warning'>
+                                                <a class='text-decoration-none fw-bold text-white' href="{% url 'edit_task' task.id%}">Edit</a>
+                                            </button>
+                                            <button class='btn btn-danger my-1'>
+                                                <a class='text-decoration-none fw-bold text-white' href="{% url 'delete_task' task.id%}">Delete</a>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}

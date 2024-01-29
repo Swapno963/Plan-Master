@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div class="row mt-5 p-1">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Confirmation Link : </h2>
+                    <p class="card-text">Click the link below to confirm your account: </p>
+                    <a href="{{ confirm_link }}" class="btn btn-primary">{{confirm_link}}</a>
+                </div>
+            </div>
+            <p class="mt-3 text-center">Thank You For Creating Account With US!</p>
+        </div>
+    </div>
+</div>
+{% endblock body %}

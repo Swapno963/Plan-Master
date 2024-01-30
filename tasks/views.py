@@ -25,6 +25,20 @@ from rest_framework.response import Response
 from django.utils.encoding import force_bytes
 from django.contrib.auth.models import User
 
+# rest framework 
+from django.shortcuts import render
+from rest_framework import viewsets
+from . import models
+from . import serializers
+from django_filters.rest_framework  import DjangoFilterBackend
+
+class TasksViewset(viewsets.ModelViewSet):
+    queryset = models.Tasks.objects.all()
+    serializer_class = serializers.TasksSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['priority','due_date','current_status']
+
+
 # send user name 
 def priority_filter(request, priority=None):
     without_filter_data = Tasks.objects.all()
@@ -159,7 +173,6 @@ def activate(request, uid64, token):
     else:
         return redirect('task_maker_register')
     
-
 # login
 def task_maker_login(request):
     if request.method =='POST':

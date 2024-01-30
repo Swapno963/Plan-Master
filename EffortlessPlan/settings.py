@@ -18,8 +18,11 @@ SECRET_KEY =  env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://effortless-plan.onrender.com','https://*.127.0.0.1']
-
+CSRF_TRUSTED_ORIGINS = ['https://effortless-plan.onrender.com','https://*.127.0.0.1',
+                        "http://127.0.0.1:5500/show_task.html",
+                    
+                        
+                        ]
 
 
 # Application definition
@@ -35,6 +38,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'projects',
     'tasks',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +148,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env('EMAIL_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
+
+
+

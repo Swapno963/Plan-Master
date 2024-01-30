@@ -4,6 +4,19 @@ To-Do App is an online task management platform built using Django. It is design
 
 ## Features
 
+# get/post all task = http://127.0.0.1:8000/api
+
+#  priority/due_date/current_status= http://127.0.0.1:8000/api?priority=&due_date=&current_status=completed
+
+
+
+
+
+
+
+
+
+
 ### User Authentication 
 
 - User registration, login, and logout system.

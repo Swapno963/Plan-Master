@@ -1,6 +1,18 @@
 from django.urls import path
 from . import views
+
+
+    # rest start
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+router = DefaultRouter() # amader router
+
+router.register('', views.TasksViewset) 
 urlpatterns = [
+     path('api', include(router.urls)),
+    # rest end
+
+
     path('',views.priority_filter, name='home') , 
 
     path('task/<int:priority>/',views.priority_filter, name='priority_wise_filter') , 
